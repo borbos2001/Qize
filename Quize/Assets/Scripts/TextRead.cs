@@ -26,6 +26,7 @@ public class TextRead : MonoBehaviour
         foreach (string i in q)
         {
             Debug.Log(q);
+            
         }
     }
 }
