@@ -1,32 +1,45 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class TextRead : MonoBehaviour
 {
+    [SerializeField] private SettingsPlayer _settingsPlayer;
+    private SpawnLetter _spawnLetter;
+    private GameControl _gameControl;
     private string _fullText;
+    private HashSet<string> _wordsForQize = new HashSet<string>();
+    private List<string> _uniqueWords;
+
     private void Start()
     {
+        _gameControl = GetComponent<GameControl>();
+        _spawnLetter = GetComponent<SpawnLetter>();
         _fullText = Resources.Load("text1").ToString();
-        ChangeToRead();
+        ChangeTextToWords();
+        RandomizeWord();
     }
 
-
-    private void Update()
+    private void ChangeTextToWords()
     {
-        
-    }
-    private void ChangeToRead()
-    {
-        char[] _charToCorrect = { ' ', '*', '.', ',', '!', '?'};
         _fullText = _fullText.ToUpper();
-        string[] q = _fullText.Split(_charToCorrect, StringSplitOptions.RemoveEmptyEntries);
-        foreach (string i in q)
+        string[] words = new Regex("\\b[\\w']+\\b").Matches(_fullText).Cast<Match>().Select(m => m.Value).ToArray();
+        foreach (string word in words)
         {
-            Debug.Log(q);
-            
+            if(word.Length >= _settingsPlayer.Lenght)
+            _wordsForQize.Add(word);
         }
+        _uniqueWords = _wordsForQize.ToList<string>();
     }
+    public void RandomizeWord()
+    {
+        int _rand = Random.Range(0, _uniqueWords.Count);
+        string _selectedWord = _uniqueWords.ElementAt(_rand);
+        _uniqueWords.RemoveAt(_rand);
+        _spawnLetter.WordParsing(_selectedWord);
+        _gameControl._guessedWord = _selectedWord;
+    }
+    
 }
