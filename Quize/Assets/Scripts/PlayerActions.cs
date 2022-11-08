@@ -6,6 +6,7 @@ public class PlayerActions : MonoBehaviour
 {
     private SpawnLetter _spawnLetter;
     private GameControl _gameControl;
+    [SerializeField] private GameObject _placeForButtons;
     private void Start()
     {
         _gameControl = gameObject.GetComponent<GameControl>();
@@ -20,10 +21,14 @@ public class PlayerActions : MonoBehaviour
                 Transform child = letter.transform.Find("Block");
                 child.gameObject.SetActive(false);
                 _gameControl.WordGuessingTest();
+                Transform newresult = _placeForButtons.transform.Find("BlockButton" + _indexLetter.ToString());
+                newresult.gameObject.SetActive(true);
+
             }
             else
             {
-
+                Transform newresult = _placeForButtons.transform.Find("BlockButton" + _indexLetter.ToString());
+                newresult.gameObject.SetActive(true);
             }
         }
 

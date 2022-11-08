@@ -9,7 +9,7 @@ public class SpawnLetter : MonoBehaviour
     [SerializeField] private GameObject _letter;
     [SerializeField] private Sprite[] _spriteLetter;
     [SerializeField] private Transform _canvas;
-    private List<Transform> _spawnedLetters;
+    private List<Transform> _spawnedLetters = new List<Transform>();
     private string _alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ'";
     public void WordParsing(string _word)
     {
