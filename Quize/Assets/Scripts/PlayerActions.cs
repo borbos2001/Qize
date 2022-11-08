@@ -6,6 +6,7 @@ public class PlayerActions : MonoBehaviour
 {
     private SpawnLetter _spawnLetter;
     private GameControl _gameControl;
+    private bool _hpChange = true;
     [SerializeField] private GameObject _placeForButtons;
     private void Start()
     {
@@ -16,21 +17,32 @@ public class PlayerActions : MonoBehaviour
     {
         foreach (Transform letter in _spawnLetter.LetterOnBoard)
         {
-            if (letter.gameObject.GetComponent<InformationAboutLetter>()._indexLetter == _indexLetter)
+            if (letter.gameObject.GetComponent<InformationAboutLetter>()._indexLetter == _indexLetter  )
             {
                 Transform child = letter.transform.Find("Block");
                 child.gameObject.SetActive(false);
-                _gameControl.WordGuessingTest();
-                Transform newresult = _placeForButtons.transform.Find("BlockButton" + _indexLetter.ToString());
-                newresult.gameObject.SetActive(true);
+
+                Transform _buttonBlock = _placeForButtons.transform.Find("BlockButton" + _indexLetter.ToString());
+                _buttonBlock.gameObject.SetActive(true);
+
+                _gameControl.WordGuessingTest(1);
+                _hpChange = false;
+            }
+            else 
+            if(letter.gameObject.GetComponent<InformationAboutLetter>()._indexLetter != _indexLetter )
+            {
+                Transform _buttonBlock = _placeForButtons.transform.Find("BlockButton" + _indexLetter.ToString());
+                _buttonBlock.gameObject.SetActive(true);
+                _gameControl.WordGuessingTest(0);
 
             }
-            else
-            {
-                Transform newresult = _placeForButtons.transform.Find("BlockButton" + _indexLetter.ToString());
-                newresult.gameObject.SetActive(true);
-            }
+
         }
+        if (_hpChange == true)
+        {
+            _gameControl.HpControl(1);
+        }
+        _hpChange = true;
 
     }
 }

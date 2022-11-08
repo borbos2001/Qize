@@ -35,6 +35,10 @@ public class SpawnLetter : MonoBehaviour
             return _spawnedLetters;
         }
     }
+    public void NullBoard()
+    {
+        _spawnedLetters = new List<Transform>(); 
+    }
 
 
 }

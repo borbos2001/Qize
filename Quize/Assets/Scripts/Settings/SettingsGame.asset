@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8097aa486f465574eb6c188ef9f255fb, type: 3}
   m_Name: SettingsGame
   m_EditorClassIdentifier: 
-  _lives: 0
-  _lengthOfWords: 0
+  _lives: 5
+  _lengthOfWords: 3

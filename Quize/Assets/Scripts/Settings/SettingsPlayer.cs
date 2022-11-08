@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 
@@ -8,7 +7,7 @@ public class SettingsPlayer : ScriptableObject
 {
     [SerializeField] private int _lives;
     [SerializeField] private int _lengthOfWords;
-    public int LivesPlayer
+    public int MaxLivesPlayer
     {
         get
         {
